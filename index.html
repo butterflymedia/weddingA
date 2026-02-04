@@ -8,6 +8,7 @@
  --ivory:#fdfaf6;
  --ink:#1a1a1a;
 }
+.show{opacity:1;transform:none;}
 *{box-sizing:border-box}
 body{
  margin:0;
@@ -19,6 +20,9 @@ body{
 
 /* HERO (Gradient – Style B/C Hybrid) */
 .hero{
+ opacity:1;
+ transform:none;
+
  min-height:100vh;
  display:flex;
  align-items:center;
@@ -57,6 +61,10 @@ body{
 .cta:hover{background:var(--gold);color:white}
 
 section{
+ opacity:0;
+ transform:translateY(60px);
+ transition:all 1.2s cubic-bezier(.19,1,.22,1);
+
  max-width:1000px;
  margin:0 auto;
  padding:100px 22px;
@@ -131,6 +139,9 @@ button{
 }
 
 footer{
+ opacity:1;
+ transform:none;
+
  text-align:center;
  padding:70px 20px;
  letter-spacing:3px;
@@ -140,14 +151,42 @@ footer{
 @media(max-width:768px){
  .hero h1{font-size:3rem}
 }
-</style></head>
-<body><!-- HERO --><section class="hero">
+
+/* MASONRY GALLERY */
+.masonry{
+ column-count:3;
+ column-gap:18px;
+ margin-top:40px;
+}
+.masonry img{
+ width:100%;
+ margin-bottom:18px;
+ border-radius:14px;
+ transition:transform .6s ease, box-shadow .6s ease;
+ box-shadow:0 20px 40px rgba(0,0,0,.15);
+}
+.masonry img:hover{
+ transform:scale(1.03);
+ box-shadow:0 30px 60px rgba(0,0,0,.25);
+}
+@media(max-width:900px){.masonry{column-count:2}}
+@media(max-width:600px){.masonry{column-count:1}}
+
+
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
   <div>
     <h1>Gokul & Athira</h1>
     <p>We are getting married</p>
     <a href="#details" class="cta">Save the Date</a>
   </div>
-</section><!-- INVITATION --><section>
+</section>
+
+<!-- INVITATION -->
+<section>
   <div class="label">Invitation</div>
   <h2>With Grace & Blessings</h2>
   <div class="divider"></div>
@@ -155,7 +194,23 @@ footer{
     With the blessings of Almighty God and the love of our families,<br>
     we invite you to celebrate the union of <strong>Gokul</strong> and <strong>Athira</strong>.
   </p>
-</section><!-- DETAILS --><section id="details">
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="label">Gallery</div>
+  <h2>Moments</h2>
+  <div class="divider"></div>
+  <div class="masonry">
+    <img src="gallery1.jpg" alt="Gallery image 1" />
+    <img src="gallery2.jpg" alt="Gallery image 2" />
+    <img src="gallery3.jpg" alt="Gallery image 3" />
+    <img src="gallery4.jpg" alt="Gallery image 4" />
+  </div>
+</section>
+
+<!-- DETAILS -->
+<section id="details">
   <div class="label">Wedding</div>
   <h2>Wedding Details</h2>
   <div class="divider"></div>
@@ -164,17 +219,26 @@ footer{
     <div><span>Time</span><strong>11:20 AM – 11:45 AM</strong></div>
     <div><span>Venue</span><strong>Elamkavu Devi Temple Auditorium<br>Kothala</strong></div>
   </div>
-</section><!-- RSVP --><section>
-  <div class="label">RSVP</div>
-  <h2>Kindly Respond</h2>
-  <div class="divider"></div>
-  <form action="mailto:nikhilskumar001@gmail.com" method="post" enctype="text/plain">
-    <input type="text" name="Name" placeholder="Your Name" required>
-    <input type="email" name="Email" placeholder="Your Email" required>
-    <textarea name="Message" placeholder="Your Message"></textarea>
-    <button type="submit">Send RSVP</button>
-  </form>
-</section><footer>
+  <a href="https://maps.app.goo.gl/pvw4jvEL48QdeHHR7" target="_blank" class="cta" style="margin-top:40px;">Tap here to see location</a>
+</section>
+
+
+
+<footer>
   Gokul & Athira · 03 · 05 · 2026
-</footer></body>
-</html>
+</footer>
+
+<script>
+// scroll animations like reference site
+const reveals = document.querySelectorAll('section, .hero');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+    }
+  });
+},{threshold:0.15});
+
+reveals.forEach(el=>observer.observe(el));
+</script></body>
+ </html>
